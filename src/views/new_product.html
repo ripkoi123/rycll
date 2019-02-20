@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Agregar Dispositivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/4/superhero/bootstrap.min.css">
+    
+</head>
+<body>
+    <form class="p-4">
+        <div class = "form-group">
+            <input type = "text" id = "mark" class = "form-control" placeholder="Marca" autofocus>
+        </div>
+        <div class = "form-group">
+                <input type = "text" id = "model" class = "form-control" placeholder="Modelo">
+        </div>
+        <div class = "form-group">
+                <input type = "text" id = "desc" class = "form-control" placeholder="Descripción">
+        </div>
+        <div class = "form-group">            
+            <label><input type = "checkbox" id = "sim" class = "form-control" >SIM</label>
+        </div>
+        <div class = "form-group">
+            <label><input type = "checkbox" id = "sd1" class = "form-control">SD</label>
+        </div>
+        <div class = "form-group">
+            <label><input type = "checkbox" id = "plate" class = "form-control">Bandeja</label>
+        </div>
+        <div class = "form-group">
+                <input type = "text" id = "place" class = "form-control" placeholder="Cita">
+        </div>
+        <button class = "btn btn-primary btn-block">
+            Guardar
+        </button>
+    </form>
+    <script>
+        const {ipcRenderer} = require('electron');
+        const form = document.querySelector('form');
+        form.addEventListener('submit', e =>{
+            const markProduct = document.querySelector('#mark').value;
+            const modelProduct = document.querySelector('#model').value;
+            const descProduct = document.querySelector('#desc').value;
+            const simProduct = document.querySelector('#sim').value;
+            const sdProduct = document.querySelector('#sd1').value;
+            const plateProduct = document.querySelector('#plate').value;
+            const placeProduct = document.querySelector('#place').value;
+            const newProduct = {
+                mark: markProduct,
+                model: modelProduct,
+                desc: descProduct,
+                sim: simProduct,
+                sd: sdProduct,
+                plate: plateProduct,
+                place: placeProduct
+            };
+            ipcRenderer.send('product:new',newProduct);
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
